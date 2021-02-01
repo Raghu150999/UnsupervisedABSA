@@ -27,3 +27,59 @@ Prepared datasets for both `laptop` and `restaurant` domain are available under 
 
 ### Configuration
 All configuration and model hyperparameters can be found at `config.py`.
+
+**Configuring Domain**
+```python
+config = {
+    'domain': 'laptop',
+    'device': 'cpu'
+}
+```
+The `domain` attribute determines which *domain* is used for training the model, which can be set to `laptop` or `restaurant`. Moreover, `device` can be set to `cuda` for training model on GPU.
+
+**Configuring data path**
+```python
+path_mapper = {
+    'laptop': './datasets/laptop',
+    'restaurant': './datasets/restaurant'
+}
+```
+The `path_mapper` is responsible for providing root directory paths for each domain. The root directory should contain 2 files namely, `train.txt` (consisting of line separated reviews from the corpus) and `test.txt` (with `serial number`, `aspect category`, `sentiment category` and `review sentence` separated by tabs for each test example).
+
+**Providing seed words**
+`aspect_seed_mapper` and `sentiment_seed_mapper` are used for providing seed words for aspect and sentiment classes for each domain.
+
+**Aspect seeds**
+```python
+aspect_seed_mapper = {
+    'laptop': {
+        'support': {"support", "service", "warranty", "coverage", "replace"},
+        'os': {"os", "windows", "ios", "mac", "system", "linux"},
+        'display': {"display", "screen", "led", "monitor", "resolution"},
+        'battery': {"battery", "life", "charge", "last", "power"},
+        'company': {"company", "product", "hp", "toshiba", "dell", "apple", "lenovo"},
+        'mouse': {"mouse", "touch", "track", "button", "pad"},
+        'software': {"software", "programs", "applications", "itunes", "photo"},
+        'keyboard': {"keyboard", "key", "space", "type", "keys"}
+    },
+    'restaurant': {
+        'food': {"food", "spicy", "sushi", "pizza", "taste", "delicious", "bland", "drinks", "flavourful"},
+        'place': {"ambience", "atmosphere", "seating", "surroundings", "environment", "location", "decoration", "spacious", "comfortable", "place"},
+        'service': {"tips", "manager", "waitress", "rude", "forgetful", "host", "server", "service", "quick", "staff"}
+    }
+}
+```
+
+**Sentiment seeds**
+```python
+sentiment_seed_mapper = {
+    'laptop': {
+        'positive': {"good", "great", 'nice', "excellent", "perfect", "impressed", "best", "thin", "cheap", "fast"},
+        'negative': {"bad", "disappointed", "terrible", "horrible", "small", "slow", "broken", "complaint", "malware", "virus", "junk", "crap", "cramped", "cramp"}
+    },
+    'restaurant': {
+        'positive': {"good", "great", 'nice', "excellent", "perfect", "fresh", "warm", "friendly", "delicious", "fast", "quick", "clean"},
+        'negative': {"bad", "terrible", "horrible", "tasteless", "awful", "smelled", "unorganized", "gross", "disappointment", "spoiled", "vomit", "cold", "slow", "dirty", "rotten", "ugly"}
+    }
+}
+```
