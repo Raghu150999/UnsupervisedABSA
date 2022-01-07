@@ -40,13 +40,13 @@ class VocabGenerator:
                     text = line.strip()
                     if category in text:
                         ids = self.tokenizer(text, return_tensors='pt', truncation=True)['input_ids']
-                        tokens = tokenizer.convert_ids_to_tokens(ids[0])
+                        tokens = self.tokenizer.convert_ids_to_tokens(ids[0])
                         word_predictions = self.mlm_model(ids.to(self.device))[0]
                         word_scores, word_ids = torch.topk(word_predictions, K_1, -1)
                         word_ids = word_ids.squeeze(0)
                         for idx, token in enumerate(tokens):
                             if token in seeds[category]:
-                                self.update_table(freq_table, category, tokenizer.convert_ids_to_tokens(word_ids[idx]))
+                                self.update_table(freq_table, category, self.tokenizer.convert_ids_to_tokens(word_ids[idx]))
         
         # Remove words appearing in multiple vocabularies (generate disjoint sets)
         for category in categories:
