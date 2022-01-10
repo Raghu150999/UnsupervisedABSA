@@ -37,7 +37,7 @@ class ScoreComputer:
                 opinion_words = set(opinion.split())
             ids = self.tokenizer(sentence, return_tensors='pt', truncation=True)['input_ids']
             tokens = self.tokenizer.convert_ids_to_tokens(ids[0])
-            word_predictions = self.mlm_model(ids.to(device))[0]
+            word_predictions = self.mlm_model(ids.to(self.device))[0]
             word_scores, word_ids = torch.topk(word_predictions, K, -1)
             word_ids = word_ids.squeeze(0)
             
@@ -85,7 +85,7 @@ class ScoreComputer:
         target = {}
         for key in source:
             words = []
-            for word, freq in source[key][:limit]:
+            for freq, word in source[key][:limit]:
                 words.append(word)
             target[key] = set(words)
         return target

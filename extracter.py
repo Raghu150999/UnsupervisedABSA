@@ -23,7 +23,7 @@ class Extracter:
             for line in tqdm(f):
                 text = line.strip()
                 sentences.append(text)
-                words = smodel(text)
+                words = self.smodel(text)
                 o = []
                 a = []
                 for word in words:

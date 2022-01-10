@@ -55,7 +55,7 @@ class Trainer:
                     pols.append(self.inv_polarity_dict[pol])
                 else:
                     sentences.append(line.strip())
-        encoded_dict = tokenizer(
+        encoded_dict = self.tokenizer(
             sentences,
             padding=True,
             return_tensors='pt',
